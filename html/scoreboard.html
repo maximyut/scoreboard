@@ -1,0 +1,112 @@
+<html>
+<head>
+
+    <title>Hello World!</title>
+
+</head>
+<link rel="stylesheet" href="../css/scoreboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<body>
+    <!-- <div class="sportsmans">
+        <div class="sportsman aka">
+            <div class="name"><span style="font-size: 29px;">AKA</span><h2>Петров Пётр</h2> </div>
+            <div class="points"> 5</div>
+            <div class="punishment">
+                <div class="punishment__name">
+                    <span>C</span>
+                    <span>K</span>
+                    <span>HC</span>
+                    <span>H</span>
+                </div>
+                <div class="number firstCategory">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="number secondCategory">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sportsman ao">
+            <div class="name"><span>AO</span><h2>Иванов Иван</h2> </div>
+            <div class="points"></div>
+            <div class="punishment">
+                <div class="punishment__name">
+                    <span>C</span>
+                    <span>K</span>
+                    <span>HC</span>
+                    <span>H</span>
+                </div>
+                <div class="number firstCategory">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="nember secondCategory">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="timer">
+        
+    </div> -->
+
+    <nav>
+        <div class="nav-wrapper">
+          <a class="brand-logo center">Shopping List</a>   
+        </div>
+      </nav>
+      <ul>
+    
+      </ul>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
+        const ul = document.querySelector('ul');
+
+        ipcRenderer.on('item:add', function(e, item){
+        ul.className = 'collection';
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        const itemText = document.createTextNode(item);
+        console.log(itemText);
+        li.appendChild(itemText);
+        ul.appendChild(li);
+        });
+        
+        ipcRenderer.on('item:clear', function(){
+            ul.className = '';
+            ul.innerHTML = '';
+        });
+
+         ul.addEventListener('dblclick', removeItem);
+
+        function removeItem(e){
+            event.target.remove();
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
+        }
+    </script>
+</body>
+</html>

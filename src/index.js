@@ -11,10 +11,11 @@ let scoreboard;
 
 
 app.on('ready', function(){
+
   control = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true
-  }
+    }
   });
   // 
   control.loadFile('html/control.html');
@@ -46,9 +47,12 @@ function createScoreboard(){
 }
 // 
 
-ipcMain.on('item:add', function(e, item){
-  control.webContents.send('item:add', item);
+ipcMain.on('set-time', function(e, minutes, seconds){
+  scoreboard.webContents.send('set-time', minutes, seconds);
+});
 
+ipcMain.on('start', function(e, value) {
+  scoreboard.webContents.send('start', value);
 });
 
 // Create menu template

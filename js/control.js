@@ -9,7 +9,9 @@ function getZero(num) {
   }
 }
 const setSeconds = document.querySelector('#set-seconds'),
-      setMinutes = document.querySelector('#set-minutes');
+      setMinutes = document.querySelector('#set-minutes'),
+      minutesValue = document.querySelector('#minutes'),
+      secondsValue = document.querySelector('#seconds');
 
 setSeconds.addEventListener('input', () => {
   setSeconds.value = getZero(setSeconds.value);
@@ -21,12 +23,49 @@ setMinutes.addEventListener('input', () => {
 
 document.querySelector('.time-setter').addEventListener('submit', (e) => {
   e.preventDefault();
-  const minutes = setMinutes.value;
-  const seconds = setSeconds.value;
-  console.log(minutes);
-  console.log(seconds);
-  ipcRenderer.send('set-time', minutes, seconds);
+  m = setMinutes.value;
+  s = setSeconds.value;
+  minutesValue.textContent = setMinutes.value;
+  secondsValue.textContent = setSeconds.value;
+  ipcRenderer.send('set-time', minutesValue.textContent, secondsValue.textContent);
+  total = Math.floor(Number(m) * 60 + Number(s));
+  return m, s;
 });
+
+let total,
+    m,
+    s,
+    minutes,
+    seconds,
+    ok,
+    timeInterval;
+
+function update() {
+  function newNumber () {
+
+    total = total - 1;
+    minutes = Math.floor(total / 60);
+    seconds = Math.floor(total - (minutes * 60));
+
+    minutesValue.textContent = getZero(minutes);
+    secondsValue.textContent = getZero(seconds);
+    ipcRenderer.send('set-time', minutesValue.textContent, secondsValue.textContent);
+    
+    if (total < 15) {
+      secondsValue.classList.add('red');
+    }
+
+    if (total <= 0) {
+      clearInterval(timeInterval);
+      ok = setInterval(change, 600);
+    }
+
+    function change() {
+      secondsValue.classList.toggle('hide');
+    }
+  }
+  timeInterval = setInterval(newNumber, 1000);
+}
 
 
 const start = document.querySelector('#start'),
@@ -38,56 +77,61 @@ const start = document.querySelector('#start'),
       rem1 = document.querySelector("#rem1"),
       rem5 = document.querySelector("#rem5"),
       rem10 = document.querySelector("#rem10");
-let   value,
-      resetValue;
-
 
 start.addEventListener('click', () => {
-  ipcRenderer.send('start');
+  update();
 });
 
 stop.addEventListener('click', () => {
-  ipcRenderer.send('stop');
+  clearInterval(timeInterval);
 });
 
 resetTime.addEventListener('click', () => {
-  ipcRenderer.send('reset-time');
+  clearInterval(timeInterval);
+  clearInterval(ok);
+  minutesValue.textContent = m;
+  secondsValue.textContent = s;
+  total = Math.floor(Number(m) * 60 + Number(s));
+  ipcRenderer.send('set-time', minutesValue.textContent, secondsValue.textContent);
 });
+
+function changeTime(add) {
+  total = total + add;
+  minutes = Math.floor(total / 60);
+  seconds = Math.floor(total - (minutes * 60));
+  minutesValue.textContent = getZero(minutes);
+  secondsValue.textContent = getZero(seconds);
+  ipcRenderer.send('set-time', minutesValue.textContent, secondsValue.textContent);
+}
 
 add1.addEventListener('click', () => {
   let add = 1;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 add5.addEventListener('click', () => {
   let add = 5;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 add10.addEventListener('click', () => {
   let add = 10;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 rem1.addEventListener('click', () => {
   let add = -1;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 rem5.addEventListener('click', () => {
   let add = -5;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 rem10.addEventListener('click', () => {
   let add = -10;
-  ipcRenderer.send('change-time', add);
-  console.log(add);
+  changeTime(add);
 });
 
 //score
@@ -96,30 +140,31 @@ const aka = document.querySelector(".aka"),
       yukoAka = aka.querySelector("#YUKO"),
       wazaariAka = aka.querySelector("#WAZA-ARI"),
       ipponAka = aka.querySelector("#IPPON"),
-      minusAka = aka.querySelector("#minusPoint");
+      minusAka = aka.querySelector("#minusPoint"),
+      akaScore = aka.querySelector('.score');
 
 yukoAka.addEventListener('click', () => {
   const point = 1;
-  ipcRenderer.send('score', point);
-  console.log(point);
+  akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
+  ipcRenderer.send('score',akaScore.textContent);
 });
 
 wazaariAka.addEventListener('click', () => {
   const point = 2;
-  ipcRenderer.send('score', point);
-  console.log(point);
+  akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
+  ipcRenderer.send('score',akaScore.textContent);
 });
 
 ipponAka.addEventListener('click', () => {
   const point = 3;
-  ipcRenderer.send('score', point);
-  console.log(point);
+  akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
+  ipcRenderer.send('score',akaScore.textContent);
 });
 
 minusAka.addEventListener('click', () => {
   const point = -1;
-  ipcRenderer.send('score', point);
-  console.log(point);
+  akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
+  ipcRenderer.send('score',akaScore.textContent);
 });
 
 //warnings 
@@ -152,11 +197,16 @@ akaC2.forEach((e) => {
 });
 
 
-
 const reset = document.querySelector("#reset");
 
 reset.addEventListener('click', () => {
-  ipcRenderer.send('reset');
+  clearInterval(timeInterval);
+  clearInterval(ok);
+  secondsValue.classList.remove('hide');
+  minutesValue.textContent = m;
+  secondsValue.textContent = s;
+  total = Math.floor(Number(m) * 60 + Number(s));
+  akaScore.textContent = 0;
   document.querySelectorAll('.checkbox').forEach((e) => {
     e.checked = false;
   });

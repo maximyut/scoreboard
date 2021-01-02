@@ -20,13 +20,10 @@ function getZero(num) {
 }
 
 ipcRenderer.on('set-time', function(e, minutes, seconds){
-  console.log(seconds);
   m = minutes;
   s = seconds;
   minutesValue.textContent = m;
   secondsValue.textContent = s;
-  console.log(getZero(minutes));
-  console.log(getZero(seconds));
   total = Math.floor(Number(minutes) * 60 + Number(seconds));
   if (total < 15) {
     secondsValue.classList.add('red');
@@ -82,7 +79,7 @@ function update() {
       secondsValue.classList.remove('red');
     }
   });
-  
+
   ipcRenderer.on('reset', () => {
     clearInterval(timeInterval);
     clearInterval(ok);
@@ -118,16 +115,13 @@ ipcRenderer.on('change-time', function(e, add) {
   secondsValue.textContent = getZero(seconds);
 });
 
-
-
-
 //score
 const aka = document.querySelector(".aka"),
       pointsAka = aka.querySelector(".points");
 
 ipcRenderer.on('score', function(e, value) {
   console.log(value);
-  pointsAka.textContent = Math.floor(Number(pointsAka.textContent) + value);
+  pointsAka.textContent = value;
 });
 
 

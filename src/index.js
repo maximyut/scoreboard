@@ -1,5 +1,6 @@
 const electron = require('electron');
 const path = require('path');
+const { on } = require('process');
 const url = require('url');
 // SET ENV
 process.env.NODE_ENV = 'development';
@@ -13,6 +14,7 @@ let scoreboard;
 app.on('ready', function(){
 
   control = new BrowserWindow({
+    title:'Control panel',
     webPreferences: {
       nodeIntegration: true
     }
@@ -32,9 +34,10 @@ app.on('ready', function(){
 //
 function createScoreboard(){
   scoreboard = new BrowserWindow({
-    width: 100 + "%",
-    height: 100 + "%",
-    title:'Add Shopping List Item',
+    resizable: false,
+    fullscreen: true,
+    frame: false,
+    title:'scoreboard',
     webPreferences: {
         nodeIntegration: true
     }
@@ -44,19 +47,29 @@ function createScoreboard(){
   scoreboard.on('close', function(){
     scoreboard = null;
   });
+  scoreboard.webContents.on('before-input-event', (event, input) => {
+    if (input.key === 'Escape' ) {
+      scoreboard.close();
+    }
+  });
 }
+
 // 
 
 ipcMain.on('set-time', function(e, minutes, seconds){
   scoreboard.webContents.send('set-time', minutes, seconds);
 });
 
-ipcMain.on('start-stop', function(e, value) {
-  scoreboard.webContents.send('start-stop', value);
+ipcMain.on('start', () => {
+  scoreboard.webContents.send('start');
 });
 
-ipcMain.on('reset-time', function(e, resetValue) {
-  scoreboard.webContents.send('reset-time', resetValue);
+ipcMain.on('stop', () => {
+  scoreboard.webContents.send('stop');
+});
+
+ipcMain.on('reset-time', () => {
+  scoreboard.webContents.send('reset-time');
 });
 
 ipcMain.on('change-time', function(e, add) {
@@ -71,9 +84,14 @@ ipcMain.on('warnings', function(e, value) {
   scoreboard.webContents.send('warnings', value);
 });
 
-ipcMain.on('reset', function(e, resetValue) {
-  scoreboard.webContents.send('reset', resetValue);
+ipcMain.on('reset', () => {
+  scoreboard.webContents.send('reset');
 });
+
+ipcMain.on('create', () =>{
+  createScoreboard();
+});
+
 
 // Create menu template
 const mainMenuTemplate =  [

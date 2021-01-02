@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-  <title>Document</title>
+  <title>Control panel</title>
 
 </head>
 <body>
@@ -12,6 +12,11 @@
       <input type="number" max="59" min="00" value="00" id="set-seconds">
       <button id="set">set</button>
     </form>
+    <div class="timer">
+      <span id="minutes">00</span>
+      :
+      <span id="seconds">00</span>
+    </div>
     <button id='start'>start</button>
     <button id='stop'>stop</button>
     <button id="reset-time">reset time</button>
@@ -28,51 +33,72 @@
   <div class="sportsmans">
     <div class="aka">
       <div class="points">
+        <div class="score">0</div>
         <button id="YUKO">YUKO</button>
         <button id="WAZA-ARI">WAZA-ARI</button>
         <button id="IPPON">IPPON</button>
         <button id="minusPoint">Minus</button>
+
       </div>
-      <div class="warnings">
-        <div class="C1">
-          <input type="checkbox" class="akaC1 checkbox" name="c" id="C" value="C1">
-          <input type="checkbox" class="akaC1 checkbox" name="k" id="K" value="K1">
-          <input type="checkbox" class="akaC1 checkbox" name="hc" id="HC" value="HC1">
-          <input type="checkbox" class="akaC1 checkbox" name="h" id="H" value="H1">
-        </div>
-        <div class="C2">
-          <input type="checkbox" class="akaC2 checkbox" name="c" id="C" value="C2">
-          <input type="checkbox" class="akaC2 checkbox" name="k" id="K" value="K2">
-          <input type="checkbox" class="akaC2 checkbox" name="hc" id="HC" value="HC2">
-          <input type="checkbox" class="akaC2 checkbox" name="h" id="H" value="H2">
-        </div>
-      </div>
+      <table class="warnings">
+        <tr>
+          <th></th>
+          <th>C</th>
+          <th>K</th>
+          <th>HC</th>
+          <th>H</th>
+        </tr>
+        <tr class="C1">
+          <th>C1</th>
+          <td><input type="checkbox" class="akaC1 checkbox" name="c" id="C" value="C1"></td>
+          <td><input type="checkbox" class="akaC1 checkbox" name="k" id="K" value="K1"></td>
+          <td><input type="checkbox" class="akaC1 checkbox" name="hc" id="HC" value="HC1"></td>
+          <td><input type="checkbox" class="akaC1 checkbox" name="h" id="H" value="H1"></td>
+        </tr>
+        <tr class="C2">
+          <th>C2</th>
+          <td><input type="checkbox" class="akaC2 checkbox" name="c" id="C" value="C2"></td>
+          <td><input type="checkbox" class="akaC2 checkbox" name="k" id="K" value="K2"></td>
+          <td><input type="checkbox" class="akaC2 checkbox" name="hc" id="HC" value="HC2"></td>
+          <td><input type="checkbox" class="akaC2 checkbox" name="h" id="H" value="H2"></td>
+        </tr>
+      </table>
     </div>
     <div class="ao">
       <div class="points">
+        <div class="score">0</div>
         <button id="YUKO">YUKO</button>
         <button id="WAZA-ARI">WAZA-ARI</button>
         <button id="IPPON">IPPON</button>
         <button id="minusPoint">Minus</button>
       </div>
-      <div class="warnings">
-        <div class="C1">
-          <input type="checkbox" class="aoC1 checkbox" name="c" id="C" value="C1">
-          <input type="checkbox" class="aoC1 checkbox" name="k" id="K" value="K1">
-          <input type="checkbox" class="aoC1 checkbox" name="hc" id="HC" value="HC1">
-          <input type="checkbox" class="aoC1 checkbox" name="h" id="H" value="H1">
-        </div>
-        <div class="C2">
-          <input type="checkbox" class="aoC2 checkbox" name="c" id="C" value="C2">
-          <input type="checkbox" class="aoC2 checkbox" name="k" id="K" value="K2">
-          <input type="checkbox" class="aoC2 checkbox" name="hc" id="HC" value="HC2">
-          <input type="checkbox" class="aoC2 checkbox" name="h" id="H" value="H2">
-        </div>
-      </div>
+      <table class="warnings">
+        <tr class="C1">
+          <tr>
+            <th></th>
+            <th>C</th>
+            <th>K</th>
+            <th>HC</th>
+            <th>H</th>
+          </tr>
+          <th>C1</th>
+          <td><input type="checkbox" class="aoC1 checkbox" name="c" id="C" value="C1"></td>
+          <td><input type="checkbox" class="aoC1 checkbox" name="k" id="K" value="K1"></td>
+          <td><input type="checkbox" class="aoC1 checkbox" name="hc" id="HC" value="HC1"></td>
+          <td><input type="checkbox" class="aoC1 checkbox" name="h" id="H" value="H1"></td> 
+        </tr>
+        <tr class="C2">
+          <th>C2</th>
+          <td><input type="checkbox" class="aoC2 checkbox" name="c" id="C" value="C1"></td>
+          <td><input type="checkbox" class="aoC2 checkbox" name="k" id="K" value="K1"></td>
+          <td><input type="checkbox" class="aoC2 checkbox" name="hc" id="HC" value="HC1"></td>
+          <td><input type="checkbox" class="aoC2 checkbox" name="h" id="H" value="H1"></td> 
+        </tr>
+      </table>
     </div>
   </div>
   <button id="reset">reset</button>
-  <!-- <iframe src="./scoreboard.html" frameborder="0"></iframe> -->
+  <button class="add">create scoreboard</button>
   <script src="../JS/control.js"></script>
 </body>
 </html>

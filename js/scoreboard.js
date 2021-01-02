@@ -64,58 +64,50 @@ function update() {
   
   let timeInterval = setInterval(newNumber, 1000);
 
-  ipcRenderer.on('start-stop', function(e, value){
-    if (value == false) {
+  ipcRenderer.on('stop', () => {
       clearInterval(timeInterval);
       console.log('stop');
-    } 
   }); 
 
-  ipcRenderer.on('reset-time', function(e, resetValue){
-    if (resetValue) {
-      clearInterval(timeInterval);
-      clearInterval(ok);
-      secondsValue.classList.remove('hide');
-      minutesValue.textContent = m;
-      secondsValue.textContent = s;
-      total = Math.floor(Number(m) * 60 + Number(s));
-      if (total < 15) {
-        secondsValue.classList.add('red');
-      } else {
-        secondsValue.classList.remove('red');
-      }
+  ipcRenderer.on('reset-time', () => {
+    clearInterval(timeInterval);
+    clearInterval(ok);
+    secondsValue.classList.remove('hide');
+    minutesValue.textContent = m;
+    secondsValue.textContent = s;
+    total = Math.floor(Number(m) * 60 + Number(s));
+    if (total < 15) {
+      secondsValue.classList.add('red');
+    } else {
+      secondsValue.classList.remove('red');
     }
   });
-  ipcRenderer.on('reset', function(e, resetValue){
-    if (resetValue) {
-      clearInterval(timeInterval);
-      clearInterval(ok);
-      secondsValue.classList.remove('hide');
-      minutesValue.textContent = m;
-      secondsValue.textContent = s;
-      total = Math.floor(Number(m) * 60 + Number(s));
-      if (total < 15) {
-        secondsValue.classList.add('red');
-      } else {
-        secondsValue.classList.remove('red');
-      }
-      pointsAka.textContent = 0;
-      akaC1.querySelector('ul').querySelectorAll('li').forEach((e) => {
-        e.style.backgroundColor = "";
-      });
-      akaC2.querySelector('ul').querySelectorAll('li').forEach((e) => {
-        e.style.backgroundColor = "";
-      });
+  
+  ipcRenderer.on('reset', () => {
+    clearInterval(timeInterval);
+    clearInterval(ok);
+    secondsValue.classList.remove('hide');
+    minutesValue.textContent = m;
+    secondsValue.textContent = s;
+    total = Math.floor(Number(m) * 60 + Number(s));
+    if (total < 15) {
+      secondsValue.classList.add('red');
+    } else {
+      secondsValue.classList.remove('red');
     }
+    pointsAka.textContent = 0;
+    akaC1.querySelector('ul').querySelectorAll('li').forEach((e) => {
+      e.style.backgroundColor = "";
+    });
+    akaC2.querySelector('ul').querySelectorAll('li').forEach((e) => {
+      e.style.backgroundColor = "";
+    });
   });
 }
 
 
-ipcRenderer.on('start-stop', function(e, value){
-  if (value) {
+ipcRenderer.on('start', () => {
     update();
-    console.log('start');
-  }
 });
 
 ipcRenderer.on('change-time', function(e, add) {

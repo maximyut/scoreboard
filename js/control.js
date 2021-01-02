@@ -43,18 +43,15 @@ let   value,
 
 
 start.addEventListener('click', () => {
-  value = true;
-  ipcRenderer.send('start-stop', value);
+  ipcRenderer.send('start');
 });
 
 stop.addEventListener('click', () => {
-  value = false;
-  ipcRenderer.send('start-stop', value);
+  ipcRenderer.send('stop');
 });
 
 resetTime.addEventListener('click', () => {
-  resetValue = true;
-  ipcRenderer.send('reset-time', resetValue);
+  ipcRenderer.send('reset-time');
 });
 
 add1.addEventListener('click', () => {
@@ -159,9 +156,13 @@ akaC2.forEach((e) => {
 const reset = document.querySelector("#reset");
 
 reset.addEventListener('click', () => {
-  resetValue = true;
-  ipcRenderer.send('reset', resetValue);
+  ipcRenderer.send('reset');
   document.querySelectorAll('.checkbox').forEach((e) => {
     e.checked = false;
   });
+});
+
+
+document.querySelector('.add').addEventListener('click', () => {
+  ipcRenderer.send('create');
 });

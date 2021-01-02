@@ -60,7 +60,6 @@ function update() {
     function change() {
       secondsValue.classList.toggle('hide');
     }
-
   }
   
   let timeInterval = setInterval(newNumber, 1000);

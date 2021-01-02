@@ -51,8 +51,24 @@ ipcMain.on('set-time', function(e, minutes, seconds){
   scoreboard.webContents.send('set-time', minutes, seconds);
 });
 
-ipcMain.on('start', function(e, value) {
-  scoreboard.webContents.send('start', value);
+ipcMain.on('start-stop', function(e, value) {
+  scoreboard.webContents.send('start-stop', value);
+});
+
+ipcMain.on('reset', function(e, resetValue) {
+  scoreboard.webContents.send('reset', resetValue);
+});
+
+ipcMain.on('change-time', function(e, add) {
+  scoreboard.webContents.send('change-time', add);
+});
+
+ipcMain.on('score', function(e, value) {
+  scoreboard.webContents.send('score', value);
+});
+
+ipcMain.on('warnings', function(e, value) {
+  scoreboard.webContents.send('warnings', value);
 });
 
 // Create menu template

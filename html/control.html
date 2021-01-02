@@ -7,12 +7,37 @@
 </head>
 <body>
   <form class="time-setter">
-    <input type="number" max="60" min="0" id="set-minutes">
-    <input type="number" max="60" min="0" id="set-seconds">
+    <input type="number" max="59" min="00" value="00" id="set-minutes">
+    <input type="number" max="59" min="00" value="00" id="set-seconds">
     <button id="set">set</button>
   </form>
   <button id='start'>start</button>
   <button id='stop'>stop</button>
+  <button id="reset">reset</button>
+  <br/>
+  <button id="add1">+1</button>
+  <button id="add5">+5</button>
+  <button id="add10">+10</button>
+  <br/>
+  <button id="rem1">-1</button>
+  <button id="rem5">-5</button>
+  <button id="rem10">-10</button>
+  <br/>
+  <div class="aka">
+    <div class="points">
+      <button id="YUKO">YUKO</button>
+      <button id="WAZA-ARI">WAZA-ARI</button>
+      <button id="IPPON">IPPON</button>
+      <button id="minusPoint">Minus</button>
+    </div>
+    <div class="warnings">
+      <input type="checkbox" name="c" id="C">
+      <input type="checkbox" name="k" id="K">
+      <input type="checkbox" name="hc" id="HC">
+      <input type="checkbox" name="h" id="H">
+    </div>
+  </div>
+  <iframe src="./scoreboard.html" frameborder="0"></iframe>
   <script src="../JS/control.js"></script>
 </body>
 </html>

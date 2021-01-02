@@ -72,6 +72,21 @@ function update() {
     } 
   }); 
 
+  ipcRenderer.on('reset-time', function(e, resetValue){
+    if (resetValue) {
+      clearInterval(timeInterval);
+      clearInterval(ok);
+      secondsValue.classList.remove('hide');
+      minutesValue.textContent = m;
+      secondsValue.textContent = s;
+      total = Math.floor(Number(m) * 60 + Number(s));
+      if (total < 15) {
+        secondsValue.classList.add('red');
+      } else {
+        secondsValue.classList.remove('red');
+      }
+    }
+  });
   ipcRenderer.on('reset', function(e, resetValue){
     if (resetValue) {
       clearInterval(timeInterval);
@@ -85,6 +100,13 @@ function update() {
       } else {
         secondsValue.classList.remove('red');
       }
+      pointsAka.textContent = 0;
+      akaC1.querySelector('ul').querySelectorAll('li').forEach((e) => {
+        e.style.backgroundColor = "";
+      });
+      akaC2.querySelector('ul').querySelectorAll('li').forEach((e) => {
+        e.style.backgroundColor = "";
+      });
     }
   });
 }
@@ -182,5 +204,6 @@ ipcRenderer.on('warnings', function(e, value){
       akaC2H.style.backgroundColor = "";
       break;
   }
-  
 });
+
+

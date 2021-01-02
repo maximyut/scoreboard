@@ -6,45 +6,72 @@
 
 </head>
 <body>
-  <form class="time-setter">
-    <input type="number" max="59" min="00" value="00" id="set-minutes">
-    <input type="number" max="59" min="00" value="00" id="set-seconds">
-    <button id="set">set</button>
-  </form>
-  <button id='start'>start</button>
-  <button id='stop'>stop</button>
-  <button id="reset">reset</button>
-  <br/>
-  <button id="add1">+1</button>
-  <button id="add5">+5</button>
-  <button id="add10">+10</button>
-  <br/>
-  <button id="rem1">-1</button>
-  <button id="rem5">-5</button>
-  <button id="rem10">-10</button>
-  <br/>
-  <div class="aka">
-    <div class="points">
-      <button id="YUKO">YUKO</button>
-      <button id="WAZA-ARI">WAZA-ARI</button>
-      <button id="IPPON">IPPON</button>
-      <button id="minusPoint">Minus</button>
-    </div>
-    <div class="warnings">
-      <div class="C1">
-        <input type="checkbox" class="akaC1" name="c" id="C" value="C1">
-        <input type="checkbox" class="akaC1" name="k" id="K" value="K1">
-        <input type="checkbox" class="akaC1" name="hc" id="HC" value="HC1">
-        <input type="checkbox" class="akaC1" name="h" id="H" value="H1">
+  <div class="time">
+    <form class="time-setter">
+      <input type="number" max="59" min="00" value="00" id="set-minutes">
+      <input type="number" max="59" min="00" value="00" id="set-seconds">
+      <button id="set">set</button>
+    </form>
+    <button id='start'>start</button>
+    <button id='stop'>stop</button>
+    <button id="reset-time">reset time</button>
+    <br/>
+    <button id="add1">+1</button>
+    <button id="add5">+5</button>
+    <button id="add10">+10</button>
+    <br/>
+    <button id="rem1">-1</button>
+    <button id="rem5">-5</button>
+    <button id="rem10">-10</button>
+    <br/>
+  </div>
+  <div class="sportsmans">
+    <div class="aka">
+      <div class="points">
+        <button id="YUKO">YUKO</button>
+        <button id="WAZA-ARI">WAZA-ARI</button>
+        <button id="IPPON">IPPON</button>
+        <button id="minusPoint">Minus</button>
       </div>
-      <div class="C2">
-        <input type="checkbox" class="akaC2" name="c" id="C" value="C2">
-        <input type="checkbox" class="akaC2" name="k" id="K" value="K2">
-        <input type="checkbox" class="akaC2" name="hc" id="HC" value="HC2">
-        <input type="checkbox" class="akaC2" name="h" id="H" value="H2">
+      <div class="warnings">
+        <div class="C1">
+          <input type="checkbox" class="akaC1 checkbox" name="c" id="C" value="C1">
+          <input type="checkbox" class="akaC1 checkbox" name="k" id="K" value="K1">
+          <input type="checkbox" class="akaC1 checkbox" name="hc" id="HC" value="HC1">
+          <input type="checkbox" class="akaC1 checkbox" name="h" id="H" value="H1">
+        </div>
+        <div class="C2">
+          <input type="checkbox" class="akaC2 checkbox" name="c" id="C" value="C2">
+          <input type="checkbox" class="akaC2 checkbox" name="k" id="K" value="K2">
+          <input type="checkbox" class="akaC2 checkbox" name="hc" id="HC" value="HC2">
+          <input type="checkbox" class="akaC2 checkbox" name="h" id="H" value="H2">
+        </div>
+      </div>
+    </div>
+    <div class="ao">
+      <div class="points">
+        <button id="YUKO">YUKO</button>
+        <button id="WAZA-ARI">WAZA-ARI</button>
+        <button id="IPPON">IPPON</button>
+        <button id="minusPoint">Minus</button>
+      </div>
+      <div class="warnings">
+        <div class="C1">
+          <input type="checkbox" class="aoC1 checkbox" name="c" id="C" value="C1">
+          <input type="checkbox" class="aoC1 checkbox" name="k" id="K" value="K1">
+          <input type="checkbox" class="aoC1 checkbox" name="hc" id="HC" value="HC1">
+          <input type="checkbox" class="aoC1 checkbox" name="h" id="H" value="H1">
+        </div>
+        <div class="C2">
+          <input type="checkbox" class="aoC2 checkbox" name="c" id="C" value="C2">
+          <input type="checkbox" class="aoC2 checkbox" name="k" id="K" value="K2">
+          <input type="checkbox" class="aoC2 checkbox" name="hc" id="HC" value="HC2">
+          <input type="checkbox" class="aoC2 checkbox" name="h" id="H" value="H2">
+        </div>
       </div>
     </div>
   </div>
+  <button id="reset">reset</button>
   <!-- <iframe src="./scoreboard.html" frameborder="0"></iframe> -->
   <script src="../JS/control.js"></script>
 </body>

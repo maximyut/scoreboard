@@ -31,7 +31,7 @@ document.querySelector('.time-setter').addEventListener('submit', (e) => {
 
 const start = document.querySelector('#start'),
       stop = document.querySelector("#stop"),
-      reset = document.querySelector("#reset"),
+      resetTime = document.querySelector("#reset-time"),
       add1 = document.querySelector("#add1"),
       add5 = document.querySelector("#add5"),
       add10 = document.querySelector("#add10"),
@@ -52,9 +52,9 @@ stop.addEventListener('click', () => {
   ipcRenderer.send('start-stop', value);
 });
 
-reset.addEventListener('click', () => {
+resetTime.addEventListener('click', () => {
   resetValue = true;
-  ipcRenderer.send('reset', resetValue);
+  ipcRenderer.send('reset-time', resetValue);
 });
 
 add1.addEventListener('click', () => {
@@ -154,3 +154,14 @@ akaC2.forEach((e) => {
   });
 });
 
+
+
+const reset = document.querySelector("#reset");
+
+reset.addEventListener('click', () => {
+  resetValue = true;
+  ipcRenderer.send('reset', resetValue);
+  document.querySelectorAll('.checkbox').forEach((e) => {
+    e.checked = false;
+  });
+});

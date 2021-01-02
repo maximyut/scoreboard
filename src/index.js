@@ -55,8 +55,8 @@ ipcMain.on('start-stop', function(e, value) {
   scoreboard.webContents.send('start-stop', value);
 });
 
-ipcMain.on('reset', function(e, resetValue) {
-  scoreboard.webContents.send('reset', resetValue);
+ipcMain.on('reset-time', function(e, resetValue) {
+  scoreboard.webContents.send('reset-time', resetValue);
 });
 
 ipcMain.on('change-time', function(e, add) {
@@ -69,6 +69,10 @@ ipcMain.on('score', function(e, value) {
 
 ipcMain.on('warnings', function(e, value) {
   scoreboard.webContents.send('warnings', value);
+});
+
+ipcMain.on('reset', function(e, resetValue) {
+  scoreboard.webContents.send('reset', resetValue);
 });
 
 // Create menu template

@@ -127,24 +127,30 @@ minusAka.addEventListener('click', () => {
 
 //warnings 
 
-const cAka = aka.querySelector('#C'),
-      kAka = aka.querySelector('#K'),
-      hcAka = aka.querySelector('#HC'),
-      hAka = aka.querySelector('#H');
+const akaC1 = aka.querySelectorAll('.akaC1'),
+      akaC2 = aka.querySelectorAll('.akaC2');
 
-cAka.addEventListener('input', () => {
-  if (cAka.checked) {
-    ipcRenderer.send('warnings', true);
-  } else {
-    ipcRenderer.send('warnings', false);
-  }
+akaC1.forEach((e) => {
+  e.addEventListener('input', () => {
+    if (e.checked) {
+      ipcRenderer.send('warnings', e.value);
+      console.log(e.value);
+    } else {
+      console.log(e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'rem');
+    }
+  });
 });
 
-kAka.addEventListener('input', () => {
-  if (kAka.checked) {
-    ipcRenderer.send('warnings', true);
-  } else {
-    ipcRenderer.send('warnings', false);
-  }
+akaC2.forEach((e) => {
+  e.addEventListener('input', () => {
+    if (e.checked) {
+      ipcRenderer.send('warnings', e.value);
+      console.log(e.value);
+    } else {
+      console.log(e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'rem');
+    }
+  });
 });
 

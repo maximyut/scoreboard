@@ -119,25 +119,68 @@ ipcRenderer.on('score', function(e, value) {
 
 
 //warnings
-const cAka = aka.querySelector('#C'),
-      kAka = aka.querySelector('#K'),
-      hcAka = aka.querySelector('#HC'),
-      hAka = aka.querySelector('#H');
+const akaC1 = aka.querySelector('.firstCategory'),
+      akaC2 = aka.querySelector('.secondCategory'),
+      akaC1C= akaC1.querySelector('#C1'),
+      akaC1K = akaC1.querySelector('#K1'),
+      akaC1HC = akaC1.querySelector('#HC1'),
+      akaC1H = akaC1.querySelector('#H1'),
+      akaC2C= akaC2.querySelector('#C2'),
+      akaC2K = akaC2.querySelector('#K2'),
+      akaC2HC = akaC2.querySelector('#HC2'),
+      akaC2H = akaC2.querySelector('#H2');
 
 ipcRenderer.on('warnings', function(e, value){
   console.log(value);
-  if (value) {
-    cAka.style.backgroundColor = "black";
-  } else {
-    cAka.style.backgroundColor = "";
+  switch (value) {
+    case 'C1': 
+      akaC1C.style.backgroundColor = "black";
+      break;
+    case 'C1rem': 
+      akaC1C.style.backgroundColor = "";
+      break;
+    case 'K1': 
+      akaC1K.style.backgroundColor = "black";
+      break;
+    case 'K1rem': 
+      akaC1K.style.backgroundColor = "";
+      break;
+    case 'HC1': 
+      akaC1HC.style.backgroundColor = "black";
+      break;
+    case 'HC1rem': 
+      akaC1HC.style.backgroundColor = "";
+      break;
+    case 'H1': 
+      akaC1H.style.backgroundColor = "black";
+      break;
+    case 'H1rem': 
+      akaC1H.style.backgroundColor = "";
+      break;
+    case 'C2': 
+      akaC2C.style.backgroundColor = "black";
+      break;
+    case 'C2rem': 
+      akaC2C.style.backgroundColor = "";
+      break;
+    case 'K2': 
+      akaC2K.style.backgroundColor = "black";
+      break;
+    case 'K2rem': 
+      akaC2K.style.backgroundColor = "";
+      break;
+    case 'HC2': 
+      akaC2HC.style.backgroundColor = "black";
+      break;
+    case 'HC2rem': 
+      akaC2HC.style.backgroundColor = "";
+      break;
+    case 'H2': 
+      akaC2H.style.backgroundColor = "black";
+      break;
+    case 'H2rem': 
+      akaC2H.style.backgroundColor = "";
+      break;
   }
-});
-
-ipcRenderer.on('warnings', function(e, value){
-  console.log(value);
-  if (value) {
-    kAka.style.backgroundColor = "black";
-  } else {
-    kAka.style.backgroundColor = "";
-  }
+  
 });

@@ -89,9 +89,9 @@ stop.addEventListener('click', () => {
 resetTime.addEventListener('click', () => {
   clearInterval(timeInterval);
   clearInterval(ok);
+  total = Math.floor(Number(m) * 60 + Number(s));
   minutesValue.textContent = m;
   secondsValue.textContent = s;
-  total = Math.floor(Number(m) * 60 + Number(s));
   ipcRenderer.send('set-time', minutesValue.textContent, secondsValue.textContent);
 });
 
@@ -146,40 +146,73 @@ const aka = document.querySelector(".aka"),
 yukoAka.addEventListener('click', () => {
   const point = 1;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
-  ipcRenderer.send('score',akaScore.textContent);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
 });
 
 wazaariAka.addEventListener('click', () => {
   const point = 2;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
-  ipcRenderer.send('score',akaScore.textContent);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
 });
 
 ipponAka.addEventListener('click', () => {
   const point = 3;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
-  ipcRenderer.send('score',akaScore.textContent);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
 });
 
 minusAka.addEventListener('click', () => {
   const point = -1;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
-  ipcRenderer.send('score',akaScore.textContent);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+});
+
+const ao = document.querySelector(".ao"),
+      yukoAo = ao.querySelector("#YUKO"),
+      wazaariAo = ao.querySelector("#WAZA-ARI"),
+      ipponAo = ao.querySelector("#IPPON"),
+      minusAo = ao.querySelector("#minusPoint"),
+      aoScore = ao.querySelector('.score');
+
+yukoAo.addEventListener('click', () => {
+  const point = 1;
+  aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+});
+
+wazaariAo.addEventListener('click', () => {
+  const point = 2;
+  aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+});
+
+ipponAo.addEventListener('click', () => {
+  const point = 3;
+  aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+});
+
+minusAo.addEventListener('click', () => {
+  const point = -1;
+  aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
+  ipcRenderer.send('score', akaScore.textContent,  aoScore.textContent);
 });
 
 //warnings 
 
-const akaC1 = aka.querySelectorAll('.akaC1'),
-      akaC2 = aka.querySelectorAll('.akaC2');
+const akaC1 = aka.querySelectorAll('.C1'),
+      akaC2 = aka.querySelectorAll('.C2'),
+      aoC1 = ao.querySelectorAll('.C1'),
+      aoC2 = ao.querySelectorAll('.C2');
 
 akaC1.forEach((e) => {
   e.addEventListener('input', () => {
     if (e.checked) {
-      ipcRenderer.send('warnings', e.value);
+      ipcRenderer.send('warnings', e.value + 'aka');
       console.log(e.value);
     } else {
       console.log(e.value + 'rem');
-      ipcRenderer.send('warnings', e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'aka' + 'rem');
     }
   });
 });
@@ -187,11 +220,35 @@ akaC1.forEach((e) => {
 akaC2.forEach((e) => {
   e.addEventListener('input', () => {
     if (e.checked) {
-      ipcRenderer.send('warnings', e.value);
+      ipcRenderer.send('warnings', e.value + 'aka');
       console.log(e.value);
     } else {
       console.log(e.value + 'rem');
-      ipcRenderer.send('warnings', e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'aka' + 'rem');
+    }
+  });
+});
+
+aoC1.forEach((e) => {
+  e.addEventListener('input', () => {
+    if (e.checked) {
+      ipcRenderer.send('warnings', e.value + 'ao');
+      console.log(e.value);
+    } else {
+      console.log(e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'ao' + 'rem');
+    }
+  });
+});
+
+aoC2.forEach((e) => {
+  e.addEventListener('input', () => {
+    if (e.checked) {
+      ipcRenderer.send('warnings', e.value + 'ao');
+      console.log(e.value);
+    } else {
+      console.log(e.value + 'rem');
+      ipcRenderer.send('warnings', e.value + 'ao' + 'rem');
     }
   });
 });
@@ -207,6 +264,9 @@ reset.addEventListener('click', () => {
   secondsValue.textContent = s;
   total = Math.floor(Number(m) * 60 + Number(s));
   akaScore.textContent = 0;
+  aoScore.textContent = 0;
+  ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  ipcRenderer.send('warnings', 'reset');
   document.querySelectorAll('.checkbox').forEach((e) => {
     e.checked = false;
   });

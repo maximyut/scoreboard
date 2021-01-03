@@ -7,17 +7,7 @@ const secondsValue = document.querySelector('#seconds');
 
 let total,
     m,
-    s,
-    minutes,
-    seconds;
-
-function getZero(num) {
-  if (num >= 0 && num < 10) {
-    return '0' + num;
-  } else {
-    return num;
-  }
-}
+    s;
 
 ipcRenderer.on('set-time', function(e, minutes, seconds){
   m = minutes;
@@ -33,95 +23,15 @@ ipcRenderer.on('set-time', function(e, minutes, seconds){
   return m, s;
 });
 
-let ok;
-
-function update() {
-  function newNumber () {
-
-    total = total - 1;
-    minutes = Math.floor(total / 60);
-    seconds = Math.floor(total - (minutes * 60));
-
-    minutesValue.textContent = getZero(minutes);
-    secondsValue.textContent = getZero(seconds);
-    
-    if (total < 15) {
-      secondsValue.classList.add('red');
-    }
-
-    if (total <= 0) {
-      clearInterval(timeInterval);
-      ok = setInterval(change, 600);
-    }
-
-    function change() {
-      secondsValue.classList.toggle('hide');
-    }
-  }
-  
-  let timeInterval = setInterval(newNumber, 1000);
-
-  ipcRenderer.on('stop', () => {
-      clearInterval(timeInterval);
-      console.log('stop');
-  }); 
-
-  ipcRenderer.on('reset-time', () => {
-    clearInterval(timeInterval);
-    clearInterval(ok);
-    secondsValue.classList.remove('hide');
-    minutesValue.textContent = m;
-    secondsValue.textContent = s;
-    total = Math.floor(Number(m) * 60 + Number(s));
-    if (total < 15) {
-      secondsValue.classList.add('red');
-    } else {
-      secondsValue.classList.remove('red');
-    }
-  });
-
-  ipcRenderer.on('reset', () => {
-    clearInterval(timeInterval);
-    clearInterval(ok);
-    secondsValue.classList.remove('hide');
-    minutesValue.textContent = m;
-    secondsValue.textContent = s;
-    total = Math.floor(Number(m) * 60 + Number(s));
-    if (total < 15) {
-      secondsValue.classList.add('red');
-    } else {
-      secondsValue.classList.remove('red');
-    }
-    pointsAka.textContent = 0;
-    akaC1.querySelector('ul').querySelectorAll('li').forEach((e) => {
-      e.style.backgroundColor = "";
-    });
-    akaC2.querySelector('ul').querySelectorAll('li').forEach((e) => {
-      e.style.backgroundColor = "";
-    });
-  });
-}
-
-
-ipcRenderer.on('start', () => {
-    update();
-});
-
-ipcRenderer.on('change-time', function(e, add) {
-  total = total + add;
-  minutes = Math.floor(total / 60);
-  seconds = Math.floor(total - (minutes * 60));
-  minutesValue.textContent = getZero(minutes);
-  secondsValue.textContent = getZero(seconds);
-});
-
 //score
 const aka = document.querySelector(".aka"),
-      pointsAka = aka.querySelector(".points");
+      ao = document.querySelector(".ao"),
+      pointsAka = aka.querySelector(".points"),
+      pointsAo = ao.querySelector(".points");
 
-ipcRenderer.on('score', function(e, value) {
-  console.log(value);
-  pointsAka.textContent = value;
+ipcRenderer.on('score', function(e, akaScore, aoScore) {
+  pointsAka.textContent = akaScore;
+  pointsAo.textContent = aoScore;
 });
 
 
@@ -135,58 +45,125 @@ const akaC1 = aka.querySelector('.firstCategory'),
       akaC2C= akaC2.querySelector('#C2'),
       akaC2K = akaC2.querySelector('#K2'),
       akaC2HC = akaC2.querySelector('#HC2'),
-      akaC2H = akaC2.querySelector('#H2');
+      akaC2H = akaC2.querySelector('#H2'),
+      aoC1 = ao.querySelector('.firstCategory'),
+      aoC2 = ao.querySelector('.secondCategory'),
+      aoC1C= aoC1.querySelector('#C1'),
+      aoC1K = aoC1.querySelector('#K1'),
+      aoC1HC = aoC1.querySelector('#HC1'),
+      aoC1H = aoC1.querySelector('#H1'),
+      aoC2C= aoC2.querySelector('#C2'),
+      aoC2K = aoC2.querySelector('#K2'),
+      aoC2HC = aoC2.querySelector('#HC2'),
+      aoC2H = aoC2.querySelector('#H2'),
+      warning = document.querySelectorAll('.warning');
+
 
 ipcRenderer.on('warnings', function(e, value){
   console.log(value);
   switch (value) {
-    case 'C1': 
+    case 'C1aka': 
       akaC1C.style.backgroundColor = "black";
       break;
-    case 'C1rem': 
+    case 'C1akarem': 
       akaC1C.style.backgroundColor = "";
       break;
-    case 'K1': 
+    case 'K1aka': 
       akaC1K.style.backgroundColor = "black";
       break;
-    case 'K1rem': 
+    case 'K1akarem': 
       akaC1K.style.backgroundColor = "";
       break;
-    case 'HC1': 
+    case 'HC1aka': 
       akaC1HC.style.backgroundColor = "black";
       break;
-    case 'HC1rem': 
+    case 'HC1akarem': 
       akaC1HC.style.backgroundColor = "";
       break;
-    case 'H1': 
+    case 'H1aka': 
       akaC1H.style.backgroundColor = "black";
       break;
-    case 'H1rem': 
+    case 'H1akarem': 
       akaC1H.style.backgroundColor = "";
       break;
-    case 'C2': 
+    case 'C2aka': 
       akaC2C.style.backgroundColor = "black";
       break;
-    case 'C2rem': 
+    case 'C2akarem': 
       akaC2C.style.backgroundColor = "";
       break;
-    case 'K2': 
+    case 'K2aka': 
       akaC2K.style.backgroundColor = "black";
       break;
-    case 'K2rem': 
+    case 'K2akarem': 
       akaC2K.style.backgroundColor = "";
       break;
-    case 'HC2': 
+    case 'HC2aka': 
       akaC2HC.style.backgroundColor = "black";
       break;
-    case 'HC2rem': 
+    case 'HC2akarem': 
       akaC2HC.style.backgroundColor = "";
       break;
-    case 'H2': 
+    case 'H2aka': 
       akaC2H.style.backgroundColor = "black";
       break;
-    case 'H2rem': 
+    case 'H2akarem': 
       akaC2H.style.backgroundColor = "";
+      break;
+    //ao
+    case 'C1ao': 
+      aoC1C.style.backgroundColor = "black";
+      break;
+    case 'C1aorem': 
+      aoC1C.style.backgroundColor = "";
+      break;
+    case 'K1ao': 
+      aoC1K.style.backgroundColor = "black";
+      break;
+    case 'K1aorem': 
+      aoC1K.style.backgroundColor = "";
+      break;
+    case 'HC1ao': 
+      aoC1HC.style.backgroundColor = "black";
+      break;
+    case 'HC1aorem': 
+      aoC1HC.style.backgroundColor = "";
+      break;
+    case 'H1ao': 
+      aoC1H.style.backgroundColor = "black";
+      break;
+    case 'H1aorem': 
+      aoC1H.style.backgroundColor = "";
+      break;
+    case 'C2ao': 
+      aoC2C.style.backgroundColor = "black";
+      break;
+    case 'C2aorem': 
+      aoC2C.style.backgroundColor = "";
+      break;
+    case 'K2ao': 
+      aoC2K.style.backgroundColor = "black";
+      break;
+    case 'K2aorem': 
+      aoC2K.style.backgroundColor = "";
+      break;
+    case 'HC2ao': 
+      aoC2HC.style.backgroundColor = "black";
+      break;
+    case 'HC2aorem': 
+      aoC2HC.style.backgroundColor = "";
+      break;
+    case 'H2ao': 
+      aoC2H.style.backgroundColor = "black";
+      break;
+    case 'H2aorem': 
+      aoC2H.style.backgroundColor = "";
+      break;
+    //reset
+    case 'reset':
+      warning.forEach((e) => {
+        e.style.backgroundColor = "";
+      });
       break;
   }
 });

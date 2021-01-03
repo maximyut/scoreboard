@@ -76,8 +76,8 @@ ipcMain.on('change-time', function(e, add) {
   scoreboard.webContents.send('change-time', add);
 });
 
-ipcMain.on('score', function(e, value) {
-  scoreboard.webContents.send('score', value);
+ipcMain.on('score', function(e, akaPoint, aoPoint) {
+  scoreboard.webContents.send('score', akaPoint, aoPoint);
 });
 
 ipcMain.on('warnings', function(e, value) {

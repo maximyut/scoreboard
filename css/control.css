@@ -1,0 +1,32 @@
+body {
+    position: relative;
+}
+
+.time {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.aka {
+    position: absolute;
+    left: 0;
+}
+
+.ao {
+    position: absolute;
+    right: 0;
+}
+
+.add {
+    position: absolute;
+    left: 60%;
+    transform: translateX(-50%);
+    top: 150px;
+}
+#reset {
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+    top: 150px;
+}

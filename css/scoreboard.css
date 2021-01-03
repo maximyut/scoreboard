@@ -10,30 +10,41 @@ body {
   height: 100%;
 }
 .sportsman {
+  position: relative;
   padding: 50px;
-    height: 100%;
-    width: 50%;
+  height: 100%;
+  width: 50%;
 }
 
 .aka {
-    background-color: red;
+  background-color: red;
 }
 
 .ao {
-  
   background-color: blue;
   text-align: end;
 }
-.ao.points {
-  margin-right: 100px;
+.ao .points {
+  left: 100px;
+  right: 0;
+}
+.ao .senshu {
+  right: 50px;
 }
 .name {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.name span {
+  font-size: 40px;
+  font-weight: 700;
+}
 .points {
-  margin-left: 100px;
+  position: relative;
+  right: 100px;
+  margin: 0 auto;
+  margin-top: 100px;
   width: 100px;
   height: 100px;
   padding: 20px 0px;
@@ -42,16 +53,29 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-.punishment {
+.senshu {
+  display: block;
+  position: absolute;
+
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 100%;
+}
+.warnings {
   display: flex;
+  margin: 0 auto;
+  margin-top: 200px;
   width: 400px;
   height: 200px;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.punishment__name {
+.warnings__name {
   width: 100%;
+  font-size: 20px;
+  font-weight: 700;
   display: flex;
   justify-content: space-around;
 }

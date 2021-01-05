@@ -273,6 +273,12 @@ reset.addEventListener('click', () => {
 });
 
 
-document.querySelector('.add').addEventListener('click', () => {
+document.querySelector('.create').addEventListener('click', () => {
   ipcRenderer.send('create');
+  document.querySelector('.control-panel').style.visibility = 'visible';
+});
+
+document.querySelector('.close').addEventListener('click', () => {
+  ipcRenderer.send('close');
+  document.querySelector('.control-panel').style.visibility = 'hidden';
 });

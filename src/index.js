@@ -92,6 +92,11 @@ ipcMain.on('create', () =>{
   createScoreboard();
 });
 
+ipcMain.on('close', () =>{
+  scoreboard.close();
+});
+
+
 
 // Create menu template
 const mainMenuTemplate =  [

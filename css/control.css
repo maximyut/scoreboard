@@ -1,5 +1,14 @@
-body {
+.menu {
+    height: 50px;
+}
+
+.create {
+
+}
+
+.control-panel {
     position: relative;
+    visibility: hidden;
 }
 
 .time {
@@ -18,12 +27,7 @@ body {
     right: 0;
 }
 
-.add {
-    position: absolute;
-    left: 60%;
-    transform: translateX(-50%);
-    top: 150px;
-}
+
 #reset {
     position: absolute;
     left: 40%;

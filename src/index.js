@@ -96,6 +96,9 @@ ipcMain.on('close', () =>{
   scoreboard.close();
 });
 
+ipcMain.on('win', function(e, value) {
+  scoreboard.webContents.send('win', value);
+});
 
 
 // Create menu template

@@ -142,23 +142,63 @@ const aka = document.querySelector(".aka"),
       ipponAka = aka.querySelector("#IPPON"),
       minusAka = aka.querySelector("#minusPoint"),
       akaScore = aka.querySelector('.score');
+// Разрыв 8 баллов
+      let totalScoreAka = 0,
+          totalScoreAo = 0;
+
+
+      function checkScoreAka (){
+        if (totalScoreAka - totalScoreAo>=8) {
+        clearInterval(timeInterval);
+        clearInterval(ok);
+        let numAka = totalScoreAka;
+        let numAo = totalScoreAo;
+        akaScore.textContent = numAka;
+        aoScore.textContent = numAo;
+        ipcRenderer.send('win','winAka');
+        totalScoreAka = 0;
+        totalScoreAo = 0;
+       }
+      }
+
+      function checkScoreAo (){
+        if (totalScoreAo - totalScoreAka>=8) {
+        clearInterval(timeInterval);
+        clearInterval(ok);
+        let num1Aka = totalScoreAka;
+        let num1Ao = totalScoreAo;
+        akaScore.textContent = num1Aka;
+        aoScore.textContent = num1Ao;
+        totalScoreAka = 0;
+        totalScoreAo = 0;
+        ipcRenderer.send('win','winAo');
+       }
+      }
+
+
 
 yukoAka.addEventListener('click', () => {
   const point = 1;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAka = totalScoreAka + point;
+  checkScoreAka();
 });
 
 wazaariAka.addEventListener('click', () => {
   const point = 2;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAka = totalScoreAka + point;
+  checkScoreAka();
 });
 
 ipponAka.addEventListener('click', () => {
   const point = 3;
   akaScore.textContent = Math.floor(Number(akaScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAka = totalScoreAka + point;
+  checkScoreAka();
 });
 
 minusAka.addEventListener('click', () => {
@@ -178,18 +218,24 @@ yukoAo.addEventListener('click', () => {
   const point = 1;
   aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAo = totalScoreAo + point;
+  checkScoreAo();
 });
 
 wazaariAo.addEventListener('click', () => {
   const point = 2;
   aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAo = totalScoreAo + point;
+  checkScoreAo();
 });
 
 ipponAo.addEventListener('click', () => {
   const point = 3;
   aoScore.textContent = Math.floor(Number(aoScore.textContent) + point);
   ipcRenderer.send('score', akaScore.textContent, aoScore.textContent);
+  totalScoreAo = totalScoreAo + point;
+  checkScoreAo();
 });
 
 minusAo.addEventListener('click', () => {
@@ -282,3 +328,4 @@ document.querySelector('.close').addEventListener('click', () => {
   ipcRenderer.send('close');
   document.querySelector('.control-panel').style.visibility = 'hidden';
 });
+

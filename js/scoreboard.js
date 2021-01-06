@@ -5,6 +5,8 @@ const {ipcRenderer} = electron;
 const minutesValue = document.querySelector('#minutes');
 const secondsValue = document.querySelector('#seconds');
 
+
+
 let total,
     m,
     s;
@@ -17,6 +19,7 @@ ipcRenderer.on('set-time', function(e, minutes, seconds){
   total = Math.floor(Number(minutes) * 60 + Number(seconds));
   if (total < 15) {
     secondsValue.classList.add('red');
+    minutesValue.classList.add('red');
   } else {
     secondsValue.classList.remove('red');
   }
@@ -29,10 +32,26 @@ const aka = document.querySelector(".aka"),
       pointsAka = aka.querySelector(".points"),
       pointsAo = ao.querySelector(".points");
 
+      pointsAka.classList.remove('blink2');
+      pointsAo.classList.remove('blink2');
+
 ipcRenderer.on('score', function(e, akaScore, aoScore) {
   pointsAka.textContent = akaScore;
   pointsAo.textContent = aoScore;
+
 });
+
+ipcRenderer.on('win', function(e,value) {
+  if(value=='winAka'){
+    pointsAka.classList.add('blink2');
+  } else {
+    pointsAo.classList.add('blink2');
+  }
+ 
+
+});
+
+
 
 
 //warnings
